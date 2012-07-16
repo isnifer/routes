@@ -1,71 +1,62 @@
 /*
 
-Type of transport:
+NAME: Routes Sorter
+VERSION: 0.1
+AUTHOR: Anton Kuznetsov
+LANG: JavaScript
+
+Type of transport for this moment:
 
 Самолет - Plane;
 Поезд - Train;
-Автомобиль - Car;
+Автобус - Bus;
 Пароход - Steamship;
 
-Main fields for all types of transport (TrType) {
-    TrType:
-    WhencePlace:
-    WherePlace:
-}
+Number of types of transport is unlimited. It all depends on your imagination.
+But! All types of transport need contains four necessary fields: TrType, WhencePlace, WherePlace, Name.
+
+TrType - Transport type. This field is primary for output information of route.
+WhencePlace - Place whence you start your current route.
+WherePlace - Place where you end your current route.
+Name - literal and/or numeric value of Transport.
+
+Another fields are unique for every transport.
+
 
 Plane contains next fields{
     TrType:
+    WhencePlace:
+    WherePlace:
     Name:
     Gate:
-    Seat:
+    SeatNum:
     BaggageTicket:
 }
 
 Train contains next fields{
     TrType:
+    WhencePlace:
+    WherePlace:
     Name:
-    Seat:
-    SeatType:
+    SeatNum:
 }
 
-Car contains next fields{
+Bus contains next fields{
     TrType:
+    WhencePlace:
+    WherePlace:
     Name:
-    CostPerDay:
+    SeatNum:
 }
 
 Steamship contains next fields{
     TrType:
+    WhencePlace:
+    WherePlace:
     Name:
-    PortName:
     SeatType:
 }
 
-Possible variant of output information:
-
-console.log("Take ", TrType, " ", Name, " from ", WhencePlace, " to ", WherePlace, ". Seat ", Seat);
-
-*/
-
-/*var Route = {};
-
-function Route(TrType, WhencePlace, WherePlace){
-    this.TrType = TrType;
-    this.WhencePlace = WhencePlace;
-    this.WherePlace = WherePlace;
-}
-
-Plain.prototype = new Route();
-
-function Plain(TrType){
-    this.TrType = "Plain";
-    this.WhencePlace = "Майами";
-    this.WherePlace = "Москва";
-    this.Name = "Аэроэкспресс";
-    this.SeatOf = "38D";
-    this.SeatType = "сидячее"
-    console.log("Take ", TrType, " ", Name, " from ", WhencePlace, " to ", WherePlace, ". Seat ", SeatOf, ". SeatType is ", SeatType);
-}*/
 
 /* Route from "Ivanovo" to "Florida City" */
 
@@ -119,7 +110,6 @@ HappyRoute = [
 ]
 
 var resultRoute = new Array();
-var gi = 0;
 
 function middleRoute(startFrom, myArray){
     var i = -1;
@@ -139,58 +129,16 @@ function reportRoute(){
             console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat", Transport.SeatNum, ".");
         } else if (Transport.TrType == "Plain"){
             console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Gate", Transport.Gate, ". Seat", Transport.SeatNum, ". Baggage Ticket is", Transport.BaggageTicket, ".");
-        } else if (Transport.TrType == "Car"){
-            console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Cost Per Day is", Transport.CostPerDay, ".");
         } else if (Transport.TrType == "Stremship"){
             console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat Type is", Transport.SeatType, ".");
         } else if (Transport.TrType == "Bus"){
             console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat", Transport.SeatNum, ".");
         } else {
-            console.log("Sorry, your transport type is undefined");
+            console.log("Sorry, your transport type is temporary undefined.");
         }
     }
 }
 
 middleRoute("Kineshma", HappyRoute);
 reportRoute();
-
-
-/*
-var Train = {
-    TrType: "Train",
-    WhencePlace: "Miami",
-    WherePlace: "Moscow",
-    Name: "Aeroexpress",
-    SeatNum: "38D",
-}
-
-
-function printRoute(Transport){
-    if (Transport.TrType === "Train"){
-        console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat", Transport.SeatNum, ".");
-    } else if (Transport.TrType === "Plain"){
-        console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Gate", Transport.Gate, ". Seat", Transport.SeatNum, ". Baggage Ticket is", Transport.BaggageTicket, ".");
-    } else if (Transport.TrType === "Car"){
-        console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Cost Per Day is", Transport.CostPerDay, ".");
-    } else if (Transport.TrType === "Stremship"){
-        console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat Type is", Transport.SeatType, ".");
-    } else if (Transport.TrType === "Bus"){
-        console.log("Take", Transport.TrType, Transport.Name, "from", Transport.WhencePlace, "to", Transport.WherePlace, ". Seat", Transport.SeatNum, ".");
-    } else {
-        console.log("Sorry, your transport type is undefined");
-    }
-};
-
-
-printRoute(Train);
-
-*/
-
-/*
- Steamship contains next fields{
- TrType:
- Name:
- SeatType:
- }
-*/
 
