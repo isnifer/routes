@@ -60,9 +60,7 @@ Steamship contains next fields{
 
 /* Route from "Ivanovo" to "Florida City" */
 
-var HappyRoute = new Array();
-
-HappyRoute = [
+var HappyRoute = [
     nightPlain = {
         TrType: "Plain",
         WhencePlace: "Moscow",
@@ -71,13 +69,6 @@ HappyRoute = [
         Gate: "D35",
         SeatNum: "F15",
         BaggageTicket: "434"
-    },
-    dayBus = {
-        TrType: "Bus",
-        WhencePlace: "Miami",
-        WherePlace: "Florida City",
-        Name: "SD456FD",
-        SeatNum: "15"
     },
     dayTrain = {
         TrType: "Train",
@@ -93,6 +84,13 @@ HappyRoute = [
         Name: "Aeroexpress",
         SeatNum: "38D"
     },
+    dayBus = {
+        TrType: "Bus",
+        WhencePlace: "Miami",
+        WherePlace: "Florida City",
+        Name: "SD456FD",
+        SeatNum: "15"
+    },
     daylyTrain = {
         TrType: "Train",
         WhencePlace: "Pokrov",
@@ -107,20 +105,55 @@ HappyRoute = [
         Name: "Aeroexpress",
         SeatNum: "38D"
     }
-]
+];
 
-var resultRoute = new Array();
+var resultRoute = [];
+var counter = 0;
 
-function middleRoute(startFrom, myArray){
-    var i = -1;
+ /*function TripSort(myArray){
+    console.log(myArray[0].WhencePlace);
     do{
+        var startFrom = myArray[i].WhencePlace;
         i++;
-    } while (typeof(myArray[i]) != 'undefined' && myArray[i].WhencePlace != startFrom);
-    if (typeof(myArray[i])!='undefined' ) {
+    } while (myArray[i] && counter <= myArray.length);
+    if (myArray[i]) {
         resultRoute.push(myArray[i]);
-        middleRoute(myArray[i].WherePlace, myArray);
+        counter++;
+        TripSort(myArray[i].WherePlace, myArray);
     }
+    return counter;
 };
+*/
+
+function TripSort(myArray){
+    for (i=0; i<myArray.length; i++){
+        var routeEnd = myArray[i].WherePlace;
+        console.log(myArray[i].WherePlace);
+        for (var j=0; j < myArray.length; j++){
+            if (myArray[j].WhencePlace == routeEnd){
+                resultRoute.push(myArray[j]);
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+
+
+
+/*
+function TripSort(myArray){
+    OrigLen = myArray.length;
+    startFrom = myArray[i].WhencePlace;
+    for (var i=0; i<OrigLen; i++){
+
+
+        counter++;
+    }
+    return counter;
+};
+*/
 
 function reportRoute(){
     for (var k=0; k<resultRoute.length; k++){
@@ -139,6 +172,8 @@ function reportRoute(){
     }
 }
 
-middleRoute("Kineshma", HappyRoute);
+TripSort(HappyRoute);
+console.log(counter);
 reportRoute();
+
 
