@@ -1,66 +1,68 @@
 /*
 
-NAME: Routes Sorter
-VERSION: 0.1
-AUTHOR: Anton Kuznetsov
-LANG: JavaScript
+ NAME: Routes Sorter
+ VERSION: 0.1
+ AUTHOR: Anton Kuznetsov
+ LANG: JavaScript
 
-Type of transport for this moment:
+ Type of transport for this moment:
 
-Самолет - Plane;
-Поезд - Train;
-Автобус - Bus;
-Пароход - Steamship;
+ Самолет - Plane;
+ Поезд - Train;
+ Автобус - Bus;
+ Пароход - Steamship;
 
-Number of types of transport is unlimited. It all depends on your imagination.
-But! All types of transport need contains four necessary fields: TrType, WhencePlace, WherePlace, Name.
+ Number of types of transport is unlimited. It all depends on your imagination.
+ But! All types of transport need contains four necessary fields: TrType, WhencePlace, WherePlace, Name.
 
-TrType - Transport type. This field is primary for output information of route.
-WhencePlace - Place whence you start your current route.
-WherePlace - Place where you end your current route.
-Name - literal and/or numeric value of Transport.
+ TrType - Transport type. This field is primary for output information of route.
+ WhencePlace - Place whence you start your current route.
+ WherePlace - Place where you end your current route.
+ Name - literal and/or numeric value of Transport.
 
-Another fields are unique for every transport.
-
-
-Plane contains next fields{
-    TrType:
-    WhencePlace:
-    WherePlace:
-    Name:
-    Gate:
-    SeatNum:
-    BaggageTicket:
-}
-
-Train contains next fields{
-    TrType:
-    WhencePlace:
-    WherePlace:
-    Name:
-    SeatNum:
-}
-
-Bus contains next fields{
-    TrType:
-    WhencePlace:
-    WherePlace:
-    Name:
-    SeatNum:
-}
-
-Steamship contains next fields{
-    TrType:
-    WhencePlace:
-    WherePlace:
-    Name:
-    SeatType:
-}
+ Another fields are unique for every transport.
 
 
-/* Route from "Ivanovo" to "Florida City" */
+ Plane contains next fields{
+ TrType:
+ WhencePlace:
+ WherePlace:
+ Name:
+ Gate:
+ SeatNum:
+ BaggageTicket:
+ }
 
-var HappyRoute = [
+ Train contains next fields{
+ TrType:
+ WhencePlace:
+ WherePlace:
+ Name:
+ SeatNum:
+ }
+
+ Bus contains next fields{
+ TrType:
+ WhencePlace:
+ WherePlace:
+ Name:
+ SeatNum:
+ }
+
+ Steamship contains next fields{
+ TrType:
+ WhencePlace:
+ WherePlace:
+ Name:
+ SeatType:
+ }
+
+
+ /* Route from "Ivanovo" to "Florida City" */
+
+var HappyRoute = new Array();
+
+HappyRoute = [
     nightPlain = {
         TrType: "Plain",
         WhencePlace: "Moscow",
@@ -69,6 +71,13 @@ var HappyRoute = [
         Gate: "D35",
         SeatNum: "F15",
         BaggageTicket: "434"
+    },
+    dayBus = {
+        TrType: "Bus",
+        WhencePlace: "Miami",
+        WherePlace: "Florida City",
+        Name: "SD456FD",
+        SeatNum: "15"
     },
     dayTrain = {
         TrType: "Train",
@@ -84,13 +93,6 @@ var HappyRoute = [
         Name: "Aeroexpress",
         SeatNum: "38D"
     },
-    dayBus = {
-        TrType: "Bus",
-        WhencePlace: "Miami",
-        WherePlace: "Florida City",
-        Name: "SD456FD",
-        SeatNum: "15"
-    },
     daylyTrain = {
         TrType: "Train",
         WhencePlace: "Pokrov",
@@ -105,55 +107,38 @@ var HappyRoute = [
         Name: "Aeroexpress",
         SeatNum: "38D"
     }
-];
+]
 
-var resultRoute = [];
-var counter = 0;
+var resultRoute = new Array(), startFrom;
 
- /*function TripSort(myArray){
-    console.log(myArray[0].WhencePlace);
-    do{
-        var startFrom = myArray[i].WhencePlace;
-        i++;
-    } while (myArray[i] && counter <= myArray.length);
-    if (myArray[i]) {
-        resultRoute.push(myArray[i]);
-        counter++;
-        TripSort(myArray[i].WherePlace, myArray);
-    }
-    return counter;
-};
-*/
 
-function TripSort(myArray){
-    for (i=0; i<myArray.length; i++){
-        var routeEnd = myArray[i].WherePlace;
-        console.log(myArray[i].WherePlace);
-        for (var j=0; j < myArray.length; j++){
-            if (myArray[j].WhencePlace == routeEnd){
-                resultRoute.push(myArray[j]);
-                counter++;
+function firstElem(myArray){
+    ArrLen = myArray.length;
+    for (var i=0; i<ArrLen; i++){
+        var count = 0;
+        for (var j=0; j<ArrLen; j++){
+            if (myArray[i].WhencePlace != myArray[j].WherePlace){
+                count++;
+                if (count == ArrLen){
+                    startFrom = myArray[i].WhencePlace;
+                }
             }
         }
     }
-    return counter;
+    return startFrom;
 }
 
 
-
-
-/*
-function TripSort(myArray){
-    OrigLen = myArray.length;
-    startFrom = myArray[i].WhencePlace;
-    for (var i=0; i<OrigLen; i++){
-
-
-        counter++;
+function middleRoute(startFrom, myArray){
+    var i = -1;
+    do{
+        i++;
+    } while (typeof(myArray[i]) != 'undefined' && myArray[i].WhencePlace != startFrom);
+    if (typeof(myArray[i])!='undefined' ) {
+        resultRoute.push(myArray[i]);
+        middleRoute(myArray[i].WherePlace, myArray);
     }
-    return counter;
 };
-*/
 
 function reportRoute(){
     for (var k=0; k<resultRoute.length; k++){
@@ -172,8 +157,9 @@ function reportRoute(){
     }
 }
 
-TripSort(HappyRoute);
-console.log(counter);
+firstElem(HappyRoute);
+middleRoute(startFrom, HappyRoute);
 reportRoute();
-
+// console.log(startFrom);
+// findFirst(HappyRoute);
 
