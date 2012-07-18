@@ -160,6 +160,4 @@ function reportRoute(){
 firstElem(HappyRoute);
 middleRoute(startFrom, HappyRoute);
 reportRoute();
-// console.log(startFrom);
-// findFirst(HappyRoute);
 
