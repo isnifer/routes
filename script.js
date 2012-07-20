@@ -109,7 +109,8 @@ HappyRoute = [
     }
 ]
 
-var resultRoute = new Array(), startFrom;
+var resultRoute = new Array()
+var startFrom;
 
 
 function firstElem(myArray){
@@ -160,4 +161,3 @@ function reportRoute(){
 firstElem(HappyRoute);
 middleRoute(startFrom, HappyRoute);
 reportRoute();
-
